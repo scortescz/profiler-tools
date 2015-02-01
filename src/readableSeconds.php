@@ -2,7 +2,8 @@
 
 namespace ProfilerTools;
 
-function secondsToDays($seconds, $precision = 1) {
+function secondsToDays($seconds, $precision = 1)
+{
     return secondsToReadableFormat(
         $seconds,
         'z H i s',
@@ -36,7 +37,8 @@ function isDecimal($number)
     return is_float($number) && floor($number) != $number;
 }
 
-function greaterThatZero($number) {
+function greaterThatZero($number)
+{
     return $number > 0;
 }
 

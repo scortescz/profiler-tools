@@ -27,7 +27,9 @@ function getDecimalPart($seconds, $precision)
 {
     if (isDecimal($seconds) && $precision > 0) {
         $numbers = explode('.', round($seconds, $precision));
-        return '.' . $numbers[1];
+        if (isset($numbers[1])) {
+            return '.' . $numbers[1];
+        }
     }
     return '';
 }

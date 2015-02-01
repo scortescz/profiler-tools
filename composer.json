@@ -17,5 +17,6 @@
         "phpunit/phpunit": "*"
     },
     "autoload": {
+        "files": ["src/readableSeconds.php"]
     }
 }

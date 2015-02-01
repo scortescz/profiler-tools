@@ -74,4 +74,4 @@ Logger appends following line to `log.csv`:
 
 ## License
 
-Copyright (c) 2015 Zdeněk Drahoš. MIT Licensed, see [LICENSE] for details.
+Copyright (c) 2015 Zdeněk Drahoš. MIT Licensed, see [LICENSE](LICENSE) for details.

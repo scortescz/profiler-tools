@@ -17,6 +17,6 @@
         "phpunit/phpunit": "*"
     },
     "autoload": {
-        "files": ["src/readableSeconds.php"]
+        "files": ["src/readableSeconds.php", "src/logger.php"]
     }
 }

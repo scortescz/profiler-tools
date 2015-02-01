@@ -9,9 +9,9 @@ class GivenStopwatchTest extends \PHPUnit_Framework_TestCase
         $stopwatch = stopwatch();
         usleep(100000);
         list($start, $end, $elapsedSeconds) = $stopwatch();
-        $this->assertTrue($start instanceof \DateTime);
-        $this->assertTrue($end instanceof \DateTime);
-        $this->assertGreaterThanOrEqual(0.1, $elapsedSeconds);
+        assertThat($start, anInstanceOf('Datetime'));
+        assertThat($end, anInstanceOf('Datetime'));
+        assertThat($elapsedSeconds, greaterThanOrEqualTo(0.1));
     }
 
     public function testDifferentStopwatchesDoNotShareState()
@@ -19,9 +19,9 @@ class GivenStopwatchTest extends \PHPUnit_Framework_TestCase
         $firstStopwatch = stopwatch();
         usleep(100);
         $secondStopwatch = stopwatch();
-        $this->assertNotEquals(
+        assertThat(
             $this->getElapsedSeconds($firstStopwatch),
-            $this->getElapsedSeconds($secondStopwatch)
+            not($this->getElapsedSeconds($secondStopwatch))
         );
     }
 

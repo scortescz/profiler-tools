@@ -7,10 +7,7 @@ class GivenTimeFormaterTest extends \PHPUnit_Framework_TestCase
     /** @dataProvider provideSeconds */
     public function testShouldConvertSecondsToReadableString($seconds, $precision, $expectedString)
     {
-        $this->assertEquals(
-            $expectedString,
-            secondsToDays($seconds, $precision)
-        );
+        assertThat(secondsToDays($seconds, $precision), is($expectedString));
     }
 
     public function provideSeconds()

@@ -16,7 +16,7 @@ class GivenLoggerTest extends \PHPUnit_Framework_TestCase
     {
         $logger = createLogger($this->testLog, $format);
         $logger(array('Hello', 'World'));
-        $this->assertEquals($expectedLogContent, file_get_contents($this->testLog));
+        $this->assertLogContains($expectedLogContent);
     }
 
     public function provideLoggers()
@@ -31,7 +31,12 @@ class GivenLoggerTest extends \PHPUnit_Framework_TestCase
     {
         file_put_contents($this->testLog, 'irrelevant existing content');
         clearLog($this->testLog);
-        $this->assertEmpty(file_get_contents($this->testLog));
+        $this->assertLogContains(emptyString());
+    }
+
+    private function assertLogContains($expectedContent)
+    {
+        assertThat(file_get_contents($this->testLog), is($expectedContent));
     }
 
     public function tearDown()

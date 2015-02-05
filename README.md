@@ -47,7 +47,7 @@ Logger appends following line to `log.csv`:
 coupled to start and stop stopwatch. You can use passing closure to `monitorExecution`
 which returns [execution report](src/ExecutionReport.php). Take a look at example with *hidden* stopwatch:
 
-```
+``` php
 $report = ProfilerTools\monitorExecution(function() {
     // execute something
 });

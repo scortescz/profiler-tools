@@ -14,3 +14,16 @@ function stopwatch()
         );
     };
 }
+
+function monitorExecution(callable $function)
+{
+    $report = new ExecutionReport();
+    $stopwatch = stopwatch();
+    try {
+        $function();
+    } catch (\Exception $e) {
+        $report->exception = $e;
+    }
+    list($report->dateStart, $report->dateFinish, $report->elapsedSeconds) = $stopwatch();
+    return $report;
+}

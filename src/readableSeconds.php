@@ -19,8 +19,11 @@ function secondsToReadableFormat($seconds, $dateFormat, $units, $separator, $pre
     $dates = array_map('intval', explode($separator, $date));
     $dates[count($dates) - 1] .= getDecimalPart($seconds, $precision);
     $nonZeroDates = array_filter($dates, 'ProfilerTools\greaterThatZero');
-    $datesWithUnits = addUnits($nonZeroDates, $units);
-    return implode($datesWithUnits, $separator);
+    if ($nonZeroDates) {
+        $datesWithUnits = addUnits($nonZeroDates, $units);
+        return implode($datesWithUnits, $separator);
+    }
+    return getZeroSeconds($units);
 }
 
 function getDecimalPart($seconds, $precision)
@@ -53,4 +56,9 @@ function addUnits($values, $units)
         $values,
         array_intersect_key($units, $values)
     );
+}
+
+function getZeroSeconds($units)
+{
+    return '0' . end($units);
 }

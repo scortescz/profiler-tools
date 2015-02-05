@@ -30,4 +30,24 @@ class GivenStopwatchTest extends \PHPUnit_Framework_TestCase
         list($start, $end, $elapsedSeconds) = $stopwatch();
         return $elapsedSeconds;
     }
+
+    public function testShouldMonitorExecutionOfFunction()
+    {
+        $result = monitorExecution(function() {
+        });
+        assertThat($result->dateStart, anInstanceOf('Datetime'));
+        assertThat($result->dateFinish, anInstanceOf('Datetime'));
+        assertThat($result->elapsedSeconds, greaterThanOrEqualTo(0));
+        assertThat($result->convertSecondsToReadableString(), is('0s'));
+        assertThat($result->exception, is(nullValue()));
+    }
+
+    public function testShouldCatchExceptionDuringExecution()
+    {
+        $exception = new \Exception();
+        $result = monitorExecution(function() use ($exception) {
+            throw $exception;
+        });
+        assertThat($result->exception, is($exception));
+    }
 }

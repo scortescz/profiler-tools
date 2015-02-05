@@ -18,6 +18,6 @@
         "hamcrest/hamcrest-php": "*"
     },
     "autoload": {
-        "files": ["src/readableSeconds.php", "src/logger.php", "src/stopwatch.php"]
+        "files": ["src/readableSeconds.php", "src/logger.php", "src/stopwatch.php", "src/ExecutionReport.php"]
     }
 }

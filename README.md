@@ -41,10 +41,29 @@ Logger appends following line to `log.csv`:
 2015-02-01T09:15:17+01:00,2015-02-01T09:15:18+01:00,1.1s
 ```
 
+### No temporal coupling
+
+`execute something` is the tricky part of the previous example. You could get easily
+coupled to start and stop stopwatch. You can use passing closure to `monitorExecution`
+which returns [execution report](src/ExecutionReport.php). Take a look at example with *hidden* stopwatch:
+
+```
+$report = ProfilerTools\monitorExecution(function() {
+    // execute something
+});
+ProfilerTools\appendCsv('log.csv', array(
+    $report->dateStart->format('c'),
+    $report->dateFinish->format('c'),
+    $report->convertSecondsToReadableString();
+    $report->elapsedSeconds
+));
+```
+
 ## Stopwatch
 
 * `$stopwatch = ProfilerTools\stopwatch()` - starts timer and returns function for stopping timer
 * `$stopwatch()` - returns start/end date and elapsed seconds
+* `$report = ProfilerTools\monitorExecution(closure)` - monitors function call and returns report
 
 ## Logger
 

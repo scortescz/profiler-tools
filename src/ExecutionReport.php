@@ -10,6 +10,8 @@ class ExecutionReport
     public $dateFinish;
     /** @var float */
     public $elapsedSeconds;
+    /** @var \Exception */
+    public $exception;
 
     public function convertSecondsToReadableString()
     {

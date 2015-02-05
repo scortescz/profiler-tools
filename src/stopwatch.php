@@ -14,3 +14,12 @@ function stopwatch()
         );
     };
 }
+
+function monitorExecution(callable $function)
+{
+    $report = new ExecutionReport();
+    $stopwatch = stopwatch();
+    $function();
+    list($report->dateStart, $report->dateFinish, $report->elapsedSeconds) = $stopwatch();
+    return $report;
+}

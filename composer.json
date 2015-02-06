@@ -1,5 +1,8 @@
 {
     "name": "zdenekdrahos/profiler-tools",
+    "type": "library",
+    "description": "Helper functions - stopwatch, logger and time converter (seconds to readable string)",
+    "keywords": ["stopwatch", "logger", "time converter", "profiler", "benchmark"],
     "license": "MIT",
     "authors": [
         {

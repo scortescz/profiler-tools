@@ -1,6 +1,6 @@
 # Simple PHP Profiler Tools
 
-Stopwatch, logger and time converter (seconds to readable string).
+Stopwatch, CSV logger and time converter (seconds to readable string).
 
 ## Install
 
@@ -26,12 +26,14 @@ $stopwatch = ProfilerTools\stopwatch();
 list($start, $end, $elapsedSeconds) = $stopwatch();
 
 // log execution time
-$logger = ProfilerTools\createLogger('log.csv');
-$logger(array(
-    $start->format('c'),
-    $end->format('c'),
-    ProfilerTools\secondsToDays($elapsedSeconds)
-));
+appendCsvLine(
+    'log.csv'
+    array(
+        $start->format('c'),
+        $end->format('c'),
+        ProfilerTools\secondsToDays($elapsedSeconds)
+    )
+);
 
 ```
 
@@ -51,11 +53,12 @@ which returns [execution report](src/ExecutionReport.php). Take a look at exampl
 $report = ProfilerTools\monitorExecution(function() {
     // execute something
 });
-ProfilerTools\appendCsv('log.csv', array(
+ProfilerTools\appendCsvLine('log.csv', array(
     $report->dateStart->format('c'),
     $report->dateFinish->format('c'),
     $report->convertSecondsToReadableString();
-    $report->elapsedSeconds
+    $report->elapsedSeconds,
+    $report->hasFailed() ? $report->exception->getMessage() : ''
 ));
 ```
 
@@ -67,13 +70,9 @@ ProfilerTools\appendCsv('log.csv', array(
 
 ## Logger
 
-* `$logger = ProfilerTools\createLogger($file, $format);` - create logger function for selected format (csv or json)
-* `$logger(array $data)` - converts data and append the result to file
-
-### Direct loggers
-
-* `appendCsv($file, array $data)`
-* `appendJson($file, array $data)`
+* `ProfilerTools\appendCsvLine($file, array $row)` - converts array to line and append the line
+* `ProfilerTools\appendCsvLines($file, array $rows)` - appends N lines in one write operation
+* `ProfilerTools\clearLog($file)` - deletes existing content of file
 
 ## Time converter
 

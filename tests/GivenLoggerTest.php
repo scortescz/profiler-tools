@@ -27,6 +27,24 @@ class GivenLoggerTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+    /** @dataProvider provideMultiRows */
+    public function testShouldAppendsLinesInOneFileOperation(array $rows, $expectedLogContent)
+    {
+        appendCsvLines($this->testLog, $rows);
+        $this->assertLogContains($expectedLogContent);
+    }
+
+    public function provideMultiRows()
+    {
+        return array(
+            'no rows -> no file content' => array(array(), ""),
+            'N rows -> N lines' => array(
+                array(array(1, 'one'), array(2, 'two')),
+                "1,one\n2,two\n"
+            )
+        );
+    }
+
     public function testWhenLogIsClearedThenFileShouldBeEmpty()
     {
         file_put_contents($this->testLog, 'irrelevant existing content');

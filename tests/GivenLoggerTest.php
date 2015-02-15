@@ -11,33 +11,33 @@ class GivenLoggerTest extends \PHPUnit_Framework_TestCase
         $this->testLog = __DIR__ . "/test.log";
     }
 
-    /** @dataProvider provideOneRow */
-    public function testShouldAppendLineToFile(array $row, $expectedLogContent)
+    /** @dataProvider provideRows */
+    public function testShouldAppendFileInOneFileOperation($logger, array $data, $expectedLogContent)
     {
-        appendCsvLine($this->testLog, $row);
+        $logger($this->testLog, $data);
         $this->assertLogContains($expectedLogContent);
     }
 
-    public function provideOneRow()
+    public function provideRows()
     {
         return array(
-            'no data -> empty line' => array(array(), "\n"),
-            'data -> csv line' => array(array('Hello', 'World'), "Hello,World\n"),
-        );
-    }
-
-    /** @dataProvider provideMultiRows */
-    public function testShouldAppendsLinesInOneFileOperation(array $rows, $expectedLogContent)
-    {
-        appendCsvLines($this->testLog, $rows);
-        $this->assertLogContains($expectedLogContent);
-    }
-
-    public function provideMultiRows()
-    {
-        return array(
-            'no rows -> no file content' => array(array(), ""),
+            '1 row with no data -> empty line' => array(
+                'ProfilerTools\appendCsvLine',
+                array(),
+                "\n"
+            ),
+            '1 row with data -> csv line' => array(
+                'ProfilerTools\appendCsvLine',
+                array('Hello', 'World'),
+                "Hello,World\n"
+            ),
+            '0 rows -> no file content' => array(
+                'ProfilerTools\appendCsvLines',
+                array(),
+                ""
+            ),
             'N rows -> N lines' => array(
+                'ProfilerTools\appendCsvLines', 
                 array(array(1, 'one'), array(2, 'two')),
                 "1,one\n2,two\n"
             )

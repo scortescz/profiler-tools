@@ -11,19 +11,18 @@ class GivenLoggerTest extends \PHPUnit_Framework_TestCase
         $this->testLog = __DIR__ . "/test.log";
     }
 
-    /** @dataProvider provideLoggers */
-    public function testShouldAppendLineToFile($format, $expectedLogContent)
+    /** @dataProvider provideOneRow */
+    public function testShouldAppendLineToFile(array $row, $expectedLogContent)
     {
-        $logger = createLogger($this->testLog, $format);
-        $logger(array('Hello', 'World'));
+        appendCsvLine($this->testLog, $row);
         $this->assertLogContains($expectedLogContent);
     }
 
-    public function provideLoggers()
+    public function provideOneRow()
     {
         return array(
-            array('csv', "Hello,World\n"),
-            array('json', '["Hello","World"]' . "\n"),
+            'no data -> empty line' => array(array(), "\n"),
+            'data -> csv line' => array(array('Hello', 'World'), "Hello,World\n"),
         );
     }
 

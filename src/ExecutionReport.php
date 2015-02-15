@@ -17,4 +17,9 @@ class ExecutionReport
     {
         return secondsToDays($this->elapsedSeconds);
     }
+
+    public function hasFailed()
+    {
+        return $this->exception != null;
+    }
 }

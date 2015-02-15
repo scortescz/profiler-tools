@@ -39,7 +39,7 @@ class GivenStopwatchTest extends \PHPUnit_Framework_TestCase
         assertThat($result->dateFinish, anInstanceOf('Datetime'));
         assertThat($result->elapsedSeconds, greaterThanOrEqualTo(0));
         assertThat($result->convertSecondsToReadableString(), is('0s'));
-        assertThat($result->exception, is(nullValue()));
+        assertThat($result->hasFailed(), is(false));
     }
 
     public function testShouldCatchExceptionDuringExecution()
@@ -48,6 +48,7 @@ class GivenStopwatchTest extends \PHPUnit_Framework_TestCase
         $result = monitorExecution(function() use ($exception) {
             throw $exception;
         });
+        assertThat($result->hasFailed(), is(true));
         assertThat($result->exception, is($exception));
     }
 }

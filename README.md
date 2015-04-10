@@ -56,7 +56,7 @@ $report = ProfilerTools\monitorExecution(function() {
 ProfilerTools\appendCsvLine('log.csv', array(
     $report->dateStart->format('c'),
     $report->dateFinish->format('c'),
-    $report->convertSecondsToReadableString();
+    $report->convertSecondsToReadableString(),
     $report->elapsedSeconds,
     $report->hasFailed() ? $report->exception->getMessage() : ''
 ));
